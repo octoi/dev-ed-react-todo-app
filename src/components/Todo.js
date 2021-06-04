@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 export default function Todo({ todo, setTodos, todos }) {
+    const todoRef = useRef();
 
     const deleteHandler = () => {
-        setTodos(todos.filter(el => el.id !== todo.id))
+        todoRef.current.classList.add('fall');
+        setTimeout(() => {
+            setTodos(todos.filter(el => el.id !== todo.id));
+        }, 1000)
     }
 
     const completeHandler = () => {
@@ -16,7 +20,7 @@ export default function Todo({ todo, setTodos, todos }) {
     }
 
     return (
-        <div className="todo">
+        <div className="todo" ref={todoRef}>
             <li className={`todo-item ${todo.completed && 'completed'}`}>{todo.text}</li>
             <button onClick={completeHandler} className="complete-btn">
                 <i className="fas fa-check"></i>
