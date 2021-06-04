@@ -7,11 +7,12 @@ import './App.css';
 function App() {
     const [inputText, setInputText] = useState('');
     const [todos, setTodos] = useState([]);
+    const [status, setStatus] = useState('all');
 
     return (
         <div className="App">
             <Header />
-            <Form todos={todos} setTodos={setTodos} inputText={inputText} setInputText={setInputText} />
+            <Form todos={todos} setTodos={setTodos} inputText={inputText} setInputText={setInputText} setStatus={setStatus} />
             <TodoList inputText={inputText} todos={todos} setTodos={setTodos} />
         </div>
     );
