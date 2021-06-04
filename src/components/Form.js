@@ -9,7 +9,6 @@ export default function Form({ setInputText, todos, setTodos, inputText }) {
     const submitTodoHandler = (e) => {
         e.preventDefault();
         let todo = { text: inputText, completed: false, id: Date.now() };
-        console.log(todo)
         setTodos([...todos, todo]);
         setInputText("");
     }
