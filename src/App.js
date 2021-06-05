@@ -9,8 +9,9 @@ function App() {
     const [todos, setTodos] = useState([]);
     const [status, setStatus] = useState('all');
     const [filteredTodos, setFilteredTodos] = useState([]);
+    const [canFetch, setCanFetch] = useState(true);
 
-    const filterHandler = () => {
+    useEffect(() => {
         switch (status) {
             case "completed":
                 setFilteredTodos(todos.filter(todo => todo.completed));
@@ -22,9 +23,20 @@ function App() {
                 setFilteredTodos(todos);
                 break
         }
-    }
 
-    useEffect(filterHandler, [todos, status])
+        if (!canFetch) localStorage.setItem("todos", JSON.stringify(todos));
+
+    }, [todos, status, canFetch])
+
+    useEffect(() => {
+        if (localStorage.getItem("todos") === null) {
+            localStorage.setItem("todos", JSON.stringify([]));
+        } else {
+            let todoFromLocal = localStorage.getItem("todos");
+            setCanFetch(false);
+            setTodos(JSON.parse(todoFromLocal));
+        }
+    }, [])
 
     return (
         <div className="App">
